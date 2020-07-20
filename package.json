@@ -1,0 +1,102 @@
+{
+  "name": "starter-fastify-js",
+  "version": "0.0.0",
+  "description": "Starter kit for server-side Node.js w/ Fastify implementations in Docker",
+  "main": "./bin/start",
+  "scripts": {
+    "prebuild": "del dist",
+    "build": "cross-env NODE_ENV=production babel src --out-dir dist",
+    "prebuild:dev": "del dist",
+    "build:dev": "cross-env NODE_ENV=development babel src --out-dir dist",
+    "coverage": "cross-env NODE_ENV=test nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "dev": "nodemon -e js,json -w src -x \"npm run start:dev\" & nodemon -e js -w tst -x \"npm test\"",
+    "fix": "standard --fix",
+    "release": "cross-env NODE_ENV=production npm test && npm run build",
+    "start": "cross-env NODE_ENV=production node ./bin/start",
+    "start:dev": "npm run build:dev && cross-env NODE_ENV=development node ./bin/start",
+    "pretest": "del coverage coverage.lcov .nyc_output",
+    "test": "standard",
+    "posttest": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive --exit 'tst/**/*.spec.js'",
+    "version": "npm run release && git add --all",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnalabs/starter-fastify-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fnalabs/starter-fastify-js/issues"
+  },
+  "homepage": "https://github.com/fnalabs/starter-fastify-js#readme",
+  "author": "Adam Eilers",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "fastify": "~3.1.1",
+    "fastify-cors": "~4.1.0",
+    "fastify-helmet": "~4.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "~7.10.5",
+    "@babel/core": "~7.10.5",
+    "@babel/plugin-proposal-class-properties": "~7.10.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "~7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "~7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "~7.10.4",
+    "@babel/register": "~7.10.5",
+    "babel-eslint": "~10.1.0",
+    "babel-plugin-add-module-exports": "~1.0.2",
+    "babel-plugin-istanbul": "~6.0.0",
+    "chai": "~4.2.0",
+    "chai-as-promised": "~7.1.1",
+    "codecov": "~3.7.1",
+    "cross-env": "~7.0.2",
+    "del-cli": "~3.0.1",
+    "dirty-chai": "~2.0.1",
+    "mocha": "~8.0.1",
+    "node-mocks-http": "~1.8.1",
+    "nodemon": "~2.0.4",
+    "nyc": "~15.1.0",
+    "proxyquire": "~2.1.3",
+    "sinon": "~9.0.2",
+    "standard": "~14.3.4",
+    "supertest": "~4.0.2"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 80,
+    "watermarks": {
+      "lines": [
+        80,
+        90
+      ],
+      "functions": [
+        80,
+        90
+      ],
+      "branches": [
+        80,
+        90
+      ],
+      "statements": [
+        80,
+        90
+      ]
+    },
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}

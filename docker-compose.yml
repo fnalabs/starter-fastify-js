@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  app:
+    build:
+      context: .
+      target: development
+
+    # NOTE: use 'image' for development
+    image: app:development
+
+    # NOTE: add 'command' for development
+    entrypoint:
+      - dumb-init
+      - --
+    command: npm run dev
+
+    # NOTE: add environment file for development
+    # env_file: ./conf/vars.env
+
+    ports:
+      - "3000:3000"
+
+    # NOTE: the container path must match APP_SOURCE above
+    # NOTE: node_modules must be added here so container uses modules from its own volume
+    volumes:
+      - .:/opt/app:rw
+      - /opt/app/node_modules
+
+    networks:
+      - app-network
+
+# networking specifics
+networks:
+  app-network:
+    driver: bridge
