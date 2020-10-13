@@ -2,7 +2,7 @@ export default class HealthRouter {
   method = 'GET'
   url = '/health'
 
-  async handler () {
+  handler = async () => {
     return 'OK'
   }
 }
