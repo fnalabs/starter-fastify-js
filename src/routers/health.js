@@ -1,8 +1,9 @@
 export default class HealthRouter {
   method = 'GET'
   url = '/health'
+  handler = this.handler
 
-  handler = async () => {
+  async handler () {
     return 'OK'
   }
 }

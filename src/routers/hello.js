@@ -1,8 +1,9 @@
 export default class HelloRouter {
   method = 'GET'
   url = '/hello-world'
+  handler = this.handler
 
-  handler = async (request, reply) => {
+  async handler (request, reply) {
     return 'Hello World'
   }
 }
