@@ -8,7 +8,6 @@ import cors from 'fastify-cors'
 import helmet from 'fastify-helmet'
 
 import main from '../src'
-import { HealthRouter, HelloRouter } from '../src/routers'
 
 chai.use(chaiAsPromised)
 chai.use(dirtyChai)
@@ -27,7 +26,5 @@ describe('main', () => {
     expect(fastifyMock.register.secondCall.calledWith(helmet)).to.be.true()
 
     expect(fastifyMock.route.calledTwice).to.be.true()
-    expect(fastifyMock.route.firstCall.calledWith(new HealthRouter())).to.be.true()
-    expect(fastifyMock.route.secondCall.calledWith(new HelloRouter())).to.be.true()
   })
 })
