@@ -7,6 +7,7 @@ services:
 
     # NOTE: use 'image' for development
     image: app:development
+    container_name: app
 
     # NOTE: add 'command' for development
     entrypoint:
@@ -25,6 +26,7 @@ services:
     volumes:
       - .:/opt/app:rw
       - /opt/app/node_modules
+      - /opt/app/cert
 
     networks:
       - app-network
