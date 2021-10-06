@@ -2,20 +2,20 @@
   "name": "starter-fastify-js",
   "version": "0.0.0",
   "description": "Starter kit for server-side Node.js w/ Fastify implementations in Docker",
+  "type": "module",
   "scripts": {
-    "prebuild": "del dist",
-    "build": "cross-env NODE_ENV=production babel src --out-dir dist",
-    "prebuild:dev": "del dist",
-    "build:dev": "cross-env NODE_ENV=development babel src --out-dir dist",
-    "coverage": "cross-env NODE_ENV=test nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "dev": "nodemon -e js,json -w src -x \"npm run start:dev\" & nodemon -e js -w tst -x \"npm test\"",
-    "fix": "standard --fix",
-    "release": "cross-env NODE_ENV=production npm test && npm run build",
-    "start": "NODE_ENV=production node ./bin/start",
-    "start:dev": "npm run build:dev && cross-env NODE_ENV=development node ./bin/start",
+    "predev": "npm run tsc",
+    "dev": "nodemon -w lib -x \"npm run start\" & npm run tsc:watch & npm run test:watch",
+    "fix": "ts-standard --fix -p ./tsconfig.json",
+    "lint": "ts-standard -p ./tsconfig.json",
+    "release": "cross-env NODE_ENV=production npm test && npm run tsc",
+    "start": "NODE_ENV=production node --experimental-specifier-resolution=node ./bin/start.js",
     "pretest": "del coverage coverage.lcov .nyc_output",
-    "test": "standard",
-    "posttest": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive --exit 'tst/**/*.spec.js'",
+    "test": "cross-env NODE_ENV=test jest --env=node --colors --coverage 'tst'",
+    "test:watch": "cross-env NODE_ENV=test jest --env=node --colors --coverage --watch 'tst'",
+    "pretsc": "del lib",
+    "tsc": "tsc --build tsconfig.build.json",
+    "tsc:watch": "tsc --build tsconfig.build.json --watch",
     "version": "npm run release && git add --all",
     "postversion": "git push && git push --tags"
   },
@@ -30,70 +30,47 @@
   "author": "Adam Eilers",
   "license": "MIT",
   "engines": {
-    "node": ">=12",
-    "npm": ">=6"
+    "node": ">=16",
+    "npm": ">=7"
   },
   "dependencies": {
-    "fastify": "~3.14.1",
-    "fastify-cors": "~5.2.0",
-    "fastify-helmet": "~5.3.1"
+    "fastify": "~3.22.0",
+    "fastify-cors": "~6.0.2",
+    "fastify-helmet": "~5.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "~7.13.14",
-    "@babel/core": "~7.13.14",
-    "@babel/plugin-proposal-class-properties": "~7.13.0",
-    "@babel/plugin-transform-modules-commonjs": "~7.13.8",
-    "@babel/register": "~7.13.14",
-    "babel-eslint": "~10.1.0",
-    "babel-plugin-add-module-exports": "~1.0.4",
-    "babel-plugin-istanbul": "~6.0.0",
-    "chai": "~4.3.4",
-    "chai-as-promised": "~7.1.1",
-    "codecov": "~3.8.1",
+    "@types/jest": "~27.0.2",
+    "@types/json-schema": "~7.0.9",
+    "codecov": "~3.8.3",
     "cross-env": "~7.0.3",
-    "del-cli": "~3.0.1",
-    "dirty-chai": "~2.0.1",
-    "mocha": "~8.3.2",
-    "node-mocks-http": "~1.10.1",
-    "nodemon": "~2.0.7",
-    "nyc": "~15.1.0",
-    "proxyquire": "~2.1.3",
-    "sinon": "~10.0.0",
-    "standard": "~16.0.3",
-    "supertest": "~6.1.3"
+    "del-cli": "~4.0.1",
+    "jest": "~27.2.4",
+    "node-mocks-http": "~1.11.0",
+    "nodemon": "~2.0.13",
+    "ts-jest": "~27.0.5",
+    "ts-standard": "~10.0.0",
+    "typescript": "~4.4.3"
   },
-  "nyc": {
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 80,
-    "statements": 80,
-    "functions": 80,
-    "branches": 80,
-    "watermarks": {
-      "lines": [
-        80,
-        90
-      ],
-      "functions": [
-        80,
-        90
-      ],
-      "branches": [
-        80,
-        90
-      ],
-      "statements": [
-        80,
-        90
-      ]
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
     },
-    "require": [
-      "@babel/register"
-    ],
-    "sourceMap": false,
-    "instrument": false
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!src/config.ts",
+      "!src/**/*.d.ts",
+      "!tst/**/*.ts"
+    ]
   },
-  "standard": {
-    "parser": "babel-eslint"
+  "ts-standard": {
+    "ignore": [
+      "dist/",
+      "docs/",
+      "lib/",
+      "tmp*"
+    ]
   }
 }
