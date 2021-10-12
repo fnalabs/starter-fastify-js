@@ -1,9 +1,15 @@
 /* eslint-env jest */
-import { HelloRouter } from '../../src/routers'
+import { FastifyReply } from 'fastify'
+import { CustomRequest } from '../../src/types'
+import HelloRouter, { HelloRequest } from '../../src/routers/hello'
 
 describe('router', () => {
-  const request = { query: { test: false } }
-  let response, router
+  const request: Pick<CustomRequest<HelloRequest>, 'query'> = { query: { test: false } }
+  const response: Pick<FastifyReply, 'code' | 'send'> = {
+    code: jest.fn().mockReturnThis(),
+    send: jest.fn().mockReturnThis()
+  }
+  let router
 
   describe('#constructor', () => {
     afterAll(() => { router = null })
@@ -21,15 +27,11 @@ describe('router', () => {
   describe('#handler', () => {
     afterEach(() => {
       request.query.test = !request.query.test
-      response = null
+      jest.clearAllMocks()
       router = null
     })
 
     beforeEach(() => {
-      response = {
-        code: jest.fn().mockReturnThis(),
-        send: jest.fn().mockReturnThis()
-      }
       router = new HelloRouter()
     })
 
