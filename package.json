@@ -34,7 +34,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "fastify": "~3.22.0",
+    "fastify": "~3.29.4",
     "fastify-cors": "~6.0.2",
     "fastify-helmet": "~5.3.2"
   },
