@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import { FastifyInstance } from 'fastify'
-import cors from 'fastify-cors'
-import helmet from 'fastify-helmet'
+import cors from '@fastify/cors'
+import helmet from '@fastify/helmet'
 
 import main from '../src'
 
