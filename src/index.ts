@@ -1,7 +1,7 @@
 // imports
 import { FastifyInstance } from 'fastify'
-import cors from 'fastify-cors'
-import helmet from 'fastify-helmet'
+import cors from '@fastify/cors'
+import helmet from '@fastify/helmet'
 
 import { HealthRouter, HelloRouter } from './routers'
 
