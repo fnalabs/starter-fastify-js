@@ -10,11 +10,11 @@ const OPTIONS = {
     cert: fs.readFileSync(SSL_CERT_PATH),
     key: fs.readFileSync(SSL_KEY_PATH)
   },
-  logger: NODE_ENV !== 'production',
+  logger: NODE_ENV !== 'production'
 }
 const SERVER = {
   host: '::',
-  port: PORT,
+  port: PORT
 }
 
 main(fastify(OPTIONS)).then(server => {
