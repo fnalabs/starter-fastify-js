@@ -7,9 +7,9 @@ Starter kit for server-side only Node.js with Fastify applications running on Al
 
 ## Overview
 
-Overall, this starter kit provides the standard boilerplate constructs to develop and build a Node.js applcation. It provides ES2017+ through Babel with `async/await` support for Fastify implemenations. It has some configurable project settings with included \*rc/\*ignore files for:
+Overall, this starter kit provides the standard boilerplate constructs to develop and build a Node.js applcation. It provides ES2022+ through Babel with `async/await` support for Fastify implemenations. It has some configurable project settings with included \*rc/\*ignore files for:
 
-- [Babel](https://babeljs.io/) ([babel.config.json](./babel.config.json) for the latest JS features)
+- [TypeScript](https://www.typescriptlang.org/) ([tsconfig.base.json](./tsconfig.base.json) for the latest JS features)
 - [Git](https://git-scm.com/) ([.gitignore](./.gitignore), pretty much the standard Node.js one provided by Github)
 - [Docker](https://www.docker.com/) ([.dockerignore](./.dockerignore), pretty much the .gitignore above with a few small changes)
 
@@ -19,14 +19,14 @@ I have added support for badges. Currently, this project is integrated with [Cir
 
 The project provides an extensible build process integrated with npm scripts. The following is a breakdown of npm scripts provided and how to use them:
 
-- `npm run build` - to build production output.
-- `npm run coverage` - to report test coverage to Codecov.
-- `npm run dev` - to run two nodemon processes automatically based on watched files, one to rebuild application code and the other to run tests
-- `npm run fix` - to automatically apply JS Standard Style to all JS code
-- `npm run release` - to test and build production code
+- `npm run dev` - to run two nodemon processes automatically based on watched files, one to rebuild application code and the other to run tests.
+- `npm run fix` - to automatically apply JS Standard Style to all JS code.
+- `npm run lint` - to run JS Standard Style checks.
+- `npm run release` - to test and build production code.
 - `npm start` - to start the application in a production environment.
 - `npm run start:dev` - to start the application in a development environment.
-- `npm test` - to run JS Standard Style checks and unit tests
+- `npm test` - to run unit tests.
+- `npm run tsc` - to build production output.
 
 ## Docker
 
