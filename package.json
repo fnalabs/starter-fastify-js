@@ -11,7 +11,7 @@
     "release": "cross-env NODE_ENV=production npm test && npm run tsc",
     "start": "NODE_ENV=production node --experimental-specifier-resolution=node ./bin/start.js",
     "start:dev": "NODE_ENV=development node --experimental-specifier-resolution=node ./bin/start.js",
-    "pretest": "del coverage coverage.lcov .nyc_output",
+    "pretest": "del coverage",
     "test": "cross-env NODE_ENV=test jest --env=node --colors --coverage 'tst'",
     "test:watch": "cross-env NODE_ENV=test jest --env=node --colors --coverage --watch 'tst'",
     "pretsc": "del lib",
