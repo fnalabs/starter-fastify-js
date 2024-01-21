@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
           paths:
             - ~/starter-fastify-js
 
@@ -21,10 +21,10 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - run: npm ci --no-optional
       - save_cache:
-          key: dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+          key: dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
           paths:
             - ~/starter-fastify-js/node_modules
 
@@ -35,10 +35,10 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - restore_cache:
           keys:
-            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
       - run:
           name: Run lint tests
           command: npm run lint
@@ -57,10 +57,10 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - restore_cache:
           keys:
-            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
       - run:
           name: Build code
           command: npm run tsc
