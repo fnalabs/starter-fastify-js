@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-import { HealthRouter } from '../../src/routers'
+import HealthRouter from '../../src/routers/health.js'
 
 describe('router', () => {
   let router

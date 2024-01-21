@@ -1,5 +1,5 @@
 # start with Alpine Linux Node image for development
-FROM node:18.14.0-alpine as base
+FROM node:20.11.0-alpine as base
 
 ARG APP_PATH="/opt/app"
 ARG PORT="3000"
@@ -40,6 +40,7 @@ ARG NODE_ENV="production"
 ENV NODE_ENV="${NODE_ENV}"
 
 COPY --from=development ${APP_PATH}/lib ${APP_PATH}/lib/
+COPY --from=development ${APP_PATH}/cert ${APP_PATH}/cert/
 COPY bin ${APP_PATH}/bin/
 COPY package.json package-lock.json LICENSE ${APP_PATH}/
 WORKDIR ${APP_PATH}

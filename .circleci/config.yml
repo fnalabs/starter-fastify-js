@@ -5,40 +5,40 @@ orbs:
 jobs:
   checkout_code:
     docker:
-      - image: cimg/node:18.14.0
+      - image: cimg/node:20.11.0
     working_directory: ~/starter-fastify-js
     steps:
       - checkout
       - save_cache:
-          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
           paths:
             - ~/starter-fastify-js
 
   install_dependencies:
     docker:
-      - image: cimg/node:18.14.0
+      - image: cimg/node:20.11.0
     working_directory: ~/starter-fastify-js
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - run: npm ci --no-optional
       - save_cache:
-          key: dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+          key: dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
           paths:
             - ~/starter-fastify-js/node_modules
 
   test:
     docker:
-      - image: cimg/node:18.14.0
+      - image: cimg/node:20.11.0
     working_directory: ~/starter-fastify-js
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - restore_cache:
           keys:
-            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
       - run:
           name: Run lint tests
           command: npm run lint
@@ -52,15 +52,15 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:18.14.0
+      - image: cimg/node:20.11.0
     working_directory: ~/starter-fastify-js
     steps:
       - restore_cache:
           keys:
-            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}-1
       - restore_cache:
           keys:
-            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}
+            - dependencies-{{ .Branch }}-{{ checksum "package.json" }}-1
       - run:
           name: Build code
           command: npm run tsc

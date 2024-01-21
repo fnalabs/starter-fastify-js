@@ -9,7 +9,7 @@ Starter kit for server-side only Node.js with Fastify applications running on Al
 
 Overall, this starter kit provides the standard boilerplate constructs to develop and build a Node.js applcation. It provides ES2022+ through Babel with `async/await` support for Fastify implemenations. It has some configurable project settings with included \*rc/\*ignore files for:
 
-- [TypeScript](https://www.typescriptlang.org/) ([tsconfig.base.json](./tsconfig.base.json) for the latest JS features)
+- [TypeScript](https://www.typescriptlang.org/) ([tsconfig.base.json](./tsconfig.base.json) for the latest TypeScript features)
 - [Git](https://git-scm.com/) ([.gitignore](./.gitignore), pretty much the standard Node.js one provided by Github)
 - [Docker](https://www.docker.com/) ([.dockerignore](./.dockerignore), pretty much the .gitignore above with a few small changes)
 
@@ -46,6 +46,7 @@ For production, builds are a multi-step process that is easily automated. Below 
 ```shell
 npm run release
 docker build -t fnalabs/docker-nodejs .
+docker run --name test -p 443:3000 fnalabs/docker-nodejs
 ```
 
 [LICENSE](./LICENSE)

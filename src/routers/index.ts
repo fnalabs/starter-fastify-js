@@ -1,2 +1,2 @@
-export { default as HealthRouter } from './health'
-export { default as HelloRouter } from './hello'
+export { default as HealthRouter } from './health.js'
+export { default as HelloRouter } from './hello.js'
