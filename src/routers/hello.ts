@@ -1,5 +1,5 @@
 import { FastifyReply, HTTPMethods, RequestGenericInterface } from 'fastify'
-import { CustomRequest, CustomRequestHandler, CustomRouteOptions } from '../types'
+import { CustomRequest, CustomRequestHandler, CustomRouteOptions } from '../types.js'
 
 export interface HelloRequest extends RequestGenericInterface {
   Querystring: {

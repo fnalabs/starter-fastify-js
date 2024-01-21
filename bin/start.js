@@ -1,7 +1,7 @@
 import fs from 'fs'
 import fastify from 'fastify'
-import { NODE_ENV, PORT, SSL_CERT_PATH, SSL_KEY_PATH } from '../lib/config'
-import main from '../lib'
+import { NODE_ENV, PORT, SSL_CERT_PATH, SSL_KEY_PATH } from '../lib/config.js'
+import main from '../lib/index.js'
 
 const OPTIONS = {
   http2: true,
