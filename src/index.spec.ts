@@ -1,13 +1,13 @@
 /* eslint-env jest */
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
 import helmet from '@fastify/helmet'
 
-import main from '../src/index.js'
+import main from './index.js'
 
 const fastifyMock = {
   register: jest.fn(),
-  route: jest.fn()
+  route: jest.fn(),
 }
 
 describe('main', () => {
