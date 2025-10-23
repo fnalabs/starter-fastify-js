@@ -1,13 +1,14 @@
-/* eslint-env mocha */
-import HealthRouter from '../../src/routers/health.js'
+/* eslint-env jest */
+import HealthRouter from './health.js'
 
 describe('router', () => {
-  let router
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let router: any
 
   describe('#constructor', () => {
-    afterAll(() => { router = null })
-
-    beforeAll(() => { router = new HealthRouter() })
+    beforeAll(() => {
+      router = new HealthRouter()
+    })
 
     it('should have `method` and `url` defined correctly', () => {
       expect(router.method).toBe('GET')
@@ -18,9 +19,9 @@ describe('router', () => {
   })
 
   describe('#handler', () => {
-    afterAll(() => { router = null })
-
-    beforeAll(() => { router = new HealthRouter() })
+    beforeAll(() => {
+      router = new HealthRouter()
+    })
 
     it('should respond with `OK` successfully', async () => {
       await expect(router.handler()).resolves.toBe('OK')

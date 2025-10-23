@@ -1,20 +1,24 @@
 /* eslint-env jest */
-import { FastifyReply } from 'fastify'
-import { CustomRequest } from '../../src/types.js'
-import HelloRouter, { HelloRequest } from '../../src/routers/hello.js'
+import type { FastifyReply } from 'fastify'
+import type { CustomRequest } from '../types.js'
+import type { HelloRequest } from './hello.js'
+import HelloRouter from './hello.js'
 
 describe('router', () => {
-  const request: Pick<CustomRequest<HelloRequest>, 'query'> = { query: { test: false } }
+  const request: Pick<CustomRequest<HelloRequest>, 'query'> = {
+    query: { test: false },
+  }
   const response: Pick<FastifyReply, 'code' | 'send'> = {
     code: jest.fn().mockReturnThis(),
-    send: jest.fn().mockReturnThis()
+    send: jest.fn().mockReturnThis(),
   }
-  let router
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let router: any
 
   describe('#constructor', () => {
-    afterAll(() => { router = null })
-
-    beforeAll(() => { router = new HelloRouter() })
+    beforeAll(() => {
+      router = new HelloRouter()
+    })
 
     it('should have `method` and `url` defined correctly', () => {
       expect(router.method).toBe('GET')
@@ -28,7 +32,6 @@ describe('router', () => {
     afterEach(() => {
       request.query.test = !request.query.test
       jest.clearAllMocks()
-      router = null
     })
 
     beforeEach(() => {

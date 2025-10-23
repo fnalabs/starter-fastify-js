@@ -1,5 +1,5 @@
 # start with Alpine Linux Node image for development
-FROM node:20.11.0-alpine as base
+FROM node:24.9.0-alpine AS base
 
 ARG APP_PATH="/opt/app"
 ARG PORT="3000"
@@ -15,7 +15,7 @@ RUN apk add --update --no-cache \
     chmod +r cert/ssl-key.pem cert/ssl-cert.pem
 
 # start with base image for development
-FROM base as development
+FROM base AS development
 
 ARG NODE_ENV="development"
 ENV NODE_ENV="${NODE_ENV}"
@@ -34,7 +34,7 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["npm", "run", "dev"]
 
 # use base image for production
-FROM base as production
+FROM base AS production
 
 ARG NODE_ENV="production"
 ENV NODE_ENV="${NODE_ENV}"
