@@ -1,5 +1,5 @@
 # start with Alpine Linux Node image for development
-FROM node:24.9.0-alpine AS base
+FROM node:24.10.0-alpine AS base
 
 ARG APP_PATH="/opt/app"
 ARG PORT="3000"
